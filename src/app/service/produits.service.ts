@@ -11,4 +11,7 @@ export class ProduitsService {
   getProduits(page:number,size:number):Observable<any>{
     return this.httpClient.get(this.host+"/produits?page="+page+"&size="+size);
   }
+  getProduitByKeyword(keyword:string, page:number, size:number):Observable<any>{
+    return this.httpClient.get(this.host+"/produits/search/byDesignationPage?mc="+keyword+"&page="+page+"&size="+size);
+  }
 }

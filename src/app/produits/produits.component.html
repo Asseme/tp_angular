@@ -7,6 +7,13 @@
           </button>
         </div>
         <div class="panel-body">
+            <form #f="ngForm" (ngSubmit)="onChercher(f.value)" >
+              <div class="form-group">
+                <label for="">Keyword</label>
+                <input name="keyword" type="text" class="form-control" ngModel>
+                <button type="submit" class="btn btn-primary">Chercher</button>
+              </div>
+            </form>
             <table *ngIf="produits" class="table table-striped">
              <thead>
                <th>ID</th>
@@ -24,7 +31,7 @@
              </tbody>
             </table>
             <ul *ngIf="pages" class="nav nav-pills">
-              <li *ngFor="let p of pages; let i=index">
+              <li class="clickable" [ngClass]="i == currentPage?'active':''" *ngFor="let p of pages; let i=index">
                 <a (click)="onPageProduct(i)">{{i}}</a>
               </li>
             </ul>
