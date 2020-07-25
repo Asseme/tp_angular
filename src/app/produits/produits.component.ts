@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { from } from 'rxjs';
 import {ProduitsService} from '../service/produits.service'
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-produits',
   templateUrl: './produits.component.html',
@@ -11,10 +12,12 @@ export class ProduitsComponent implements OnInit {
   private size:number=2;
   public currentPage:number=0;
   public totalPages:number=0;
-  pages:Array<number>
-  constructor(private produitsService: ProduitsService) { }
+  pages:Array<number>;
+  private currentKeyword:string="";
+  constructor(private produitsService: ProduitsService, private router:Router) { }
 
   ngOnInit(): void {
+    this.chercherProduit();
   }
 
   onGetProduct():void{
@@ -35,11 +38,18 @@ export class ProduitsComponent implements OnInit {
 
   onPageProduct(i):void{
     this.currentPage = i;
-    this.onGetProduct();
+    /* this.onGetProduct(); */
+    this.chercherProduit()
   }
 
   onChercher(value:any){
-    this.produitsService.getProduitByKeyword(value.keyword , this.currentPage, this.size)
+    this.currentPage = 0;
+    this.currentKeyword = value.keyword;
+    this.chercherProduit();
+  }
+
+  chercherProduit(){
+    this.produitsService.getProduitByKeyword(this.currentKeyword, this.currentPage, this.size)
     .subscribe(
       (data) => {
         this.produits = data._embedded.produits;
@@ -47,6 +57,25 @@ export class ProduitsComponent implements OnInit {
         this.pages = new Array<number>(this.totalPages);
       }
     ) ;
-    console.log(value);
+  }
+
+  onEditProduit(p:any){
+    let url = p._links.self.href;
+    this.router.navigateByUrl("edit-produit/"+btoa(url));
+  }
+  onDeleteProduit(p:any){
+    let conf = confirm("Etes vous sur ?");
+    if(conf){
+      console.log(p._links.self.href);
+      this.produitsService.deleteProduit(p._links.self.href)
+      .subscribe(
+        (data) => {
+          this.chercherProduit();
+        },
+        (err) => {
+          console.log(err);
+        }
+      ) ;
+    }
   }
 }

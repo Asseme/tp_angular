@@ -2,24 +2,25 @@
     <div class="panel panel-primary">
       <div class="panel-heading">Liste de Produits</div>
         <div class="panel-body">
-          <button class="btn btn-primary" (click)="onGetProduct()">
-            Chercher
-          </button>
+<!--           <button class="btn btn-primary" (click)="onGetProduct()">
+            Produits
+          </button> -->
         </div>
         <div class="panel-body">
             <form #f="ngForm" (ngSubmit)="onChercher(f.value)" >
               <div class="form-group">
                 <label for="">Keyword</label>
                 <input name="keyword" type="text" class="form-control" ngModel>
-                <button type="submit" class="btn btn-primary">Chercher</button>
               </div>
-            </form>
+              <button type="submit" class="btn btn-primary">Chercher</button>
+            </form> <p></p>
             <table *ngIf="produits" class="table table-striped">
              <thead>
                <th>ID</th>
                <th>Designation</th>
                <th>Price</th>
                <th>Quantity</th>
+               <th></th>
              </thead>
              <tbody>
               <tr *ngFor="let p of produits" >
@@ -27,6 +28,10 @@
                 <td>{{p.designation}}</td>
                 <td>{{p.price}}</td>
                 <td>{{p.quantity}}</td>
+                <td><a class="btn btn-success" (click)="onEditProduit(p)">Update</a></td>
+                <td>
+                  <a class="btn btn-danger" (click)="onDeleteProduit(p)">Delete</a>
+                </td>
               </tr>
              </tbody>
             </table>

@@ -1,1 +1,43 @@
-<p>add-produit works!</p>
+<div class="container">
+  <div class="col-md-12 col-sm-6 col-xs-12">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        Nouveau produit
+      </div>
+          <div class="panel-body" *ngIf="mode==1">
+            <form #f=ngForm (ngSubmit)="onSaveProduit(f.value)" action="" >
+              <div class="form-group">
+                <label class="control-label" for="designation">Designation</label>
+                <input name="designation" type="text" class="form-control" ngModel>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="price">Price</label>
+                <input name="price" type="number" class="form-control" ngModel>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="quantite">Quantite</label>
+                <input name="quantity" type="number" class="form-control" ngModel>
+              </div>
+              <button class="btn btn-success" type="submit">Save</button>
+            </form>
+          </div>
+          <div class="panel-body" *ngIf="mode==2">
+            <div class="form-group">
+              <button class="btn btn-success" (click)="onNewProduct()">New product</button>
+            </div>
+            <div class="form-group">
+              <label for="">ID:</label><label for="">{{currentProduct.id}}</label>
+            </div>
+            <div class="form-group">
+              <label for="">Designation: </label><label for="">{{currentProduct.designation}}</label>
+            </div>
+            <div class="form-group">
+              <label for="">Price: </label><label for="">{{currentProduct.price}}</label>
+            </div>
+            <div class="form-group">
+              <label for="">Quantity: </label><label for="">{{currentProduct.quantity}}</label>
+            </div>
+          </div>
+    </div>
+  </div>
+</div>

@@ -8,11 +8,13 @@ import { ProduitsComponent } from './produits/produits.component';
 import { AddProduitComponent } from './add-produit/add-produit.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
+import { EditProduitComponent } from './edit-produit/edit-produit.component';
 @NgModule({
   declarations: [
     AppComponent,
     ProduitsComponent,
-    AddProduitComponent
+    AddProduitComponent,
+    EditProduitComponent
   ],
   imports: [
     BrowserModule,
